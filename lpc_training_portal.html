@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layered Process Confirmation (LPC) Training Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            background-color: #003366;
+            padding: 10px 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container {
+            padding: 20px;
+            text-align: center;
+            background-color: #e0e0e0;
+        }
+
+        #searchBar {
+            width: 300px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+        }
+
+        .training-module {
+            background-color: #f1f1f1;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #003366;
+        }
+
+        .training-module button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .training-module button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        aside {
+            background-color: #ffeeba;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-left: 5px solid #ffa000;
+        }
+
+        h2, h3 {
+            color: #003366;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchBar" placeholder="Search LPC topics...">
+        <button onclick="search()">Search</button>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav>
+        <ul>
+            <li>Overview</li>
+            <li>Philosophy</li>
+            <li>Implementation</li>
+            <li>Roles & Responsibilities</li>
+            <li>Process Steps</li>
+            <li>Evaluation</li>
+        </ul>
+    </nav>
+
+    <!-- Key Topics with Training Sections -->
+    <main>
+        <section id="philosophy-training">
+            <h2>Philosophy & Purpose</h2>
+            <div class="training-module">
+                <h3>Why We Do LPC</h3>
+                <ul>
+                    <li>Training Module: Understanding LPC Basics</li>
+                    <li>Interactive Quiz: LPC Fundamentals</li>
+                    <li>Case Studies: Successful LPC Implementation</li>
+                </ul>
+                <button onclick="completeModule(this)">Mark as Completed</button>
+            </div>
+        </section>
+
+        <section id="implementation-training">
+            <h2>Implementation Guide</h2>
+            <div class="training-module">
+                <h3>Prerequisites</h3>
+                <ul>
+                    <li>Training Module: Setting Up LPC</li>
+                    <li>Interactive Guide: Area Definition</li>
+                    <li>Workshop: Creating LPC Schedules</li>
+                </ul>
+                <button onclick="completeModule(this)">Mark as Completed</button>
+            </div>
+        </section>
+
+        <section id="roles-training">
+            <h2>Roles & Responsibilities</h2>
+            <div class="training-module">
+                <h3>Role-Specific Training</h3>
+                <ul>
+                    <li>LPC Performer Training</li>
+                    <li>Standard Responsible Training</li>
+                    <li>Leadership Training</li>
+                </ul>
+                <button onclick="completeModule(this)">Mark as Completed</button>
+            </div>
+        </section>
+
+        <section id="process-training">
+            <h2>Process Execution</h2>
+            <div class="training-module">
+                <h3>Step-by-Step Guide</h3>
+                <ul>
+                    <li>Interactive Flowchart Training</li>
+                    <li>Question Definition Workshop</li>
+                    <li>Deviation Management Training</li>
+                </ul>
+                <button onclick="completeModule(this)">Mark as Completed</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Key Points Highlight Box -->
+    <aside>
+        <h3>Key Points</h3>
+        <ul>
+            <li>Mandatory implementation from January 1st, 2026</li>
+            <li>Focus on Quality-relevant topics</li>
+            <li>Regular evaluation required (Daily & Monthly)</li>
+            <li>Clear role definition necessary</li>
+            <li>Maximum 15-minute duration for LPC execution</li>
+        </ul>
+    </aside>
+
+    <script>
+        function search() {
+            const query = document.getElementById("searchBar").value.toLowerCase();
+            const sections = document.querySelectorAll("main section");
+            sections.forEach(section => {
+                section.style.display = section.innerText.toLowerCase().includes(query) ? "block" : "none";
+            });
+        }
+
+        function completeModule(button) {
+            button.disabled = true;
+            button.textContent = "Completed!";
+
+            const moduleName = button.parentElement.querySelector("h3").textContent;
+            localStorage.setItem(moduleName, "completed");
+        }
+
+        window.onload = function() {
+            document.querySelectorAll(".training-module").forEach(module => {
+                const h3 = module.querySelector("h3");
+                const button = module.querySelector("button");
+                const saved = localStorage.getItem(h3.textContent);
+                if (saved === "completed") {
+                    button.disabled = true;
+                    button.textContent = "Completed!";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
